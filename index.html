@@ -388,6 +388,12 @@
             text-transform: uppercase
         }
 
+        /* coming soon state */
+        .project.soon { cursor: default }
+        .project.soon .view-btn,
+        .project.soon:hover .view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1) }
+        .project.soon:hover .p-media .ph { transform: none }
+
         /* ---------- numbers ---------- */
         .numbers {
             background: var(--ink);
@@ -1100,7 +1106,7 @@
             </div>
             <div class="projects">
 
-                <article class="project reveal" data-case="rua">
+                <article class="project reveal soon" aria-disabled="true" data-case="rua">
                     <div class="p-text">
                         <div class="p-index">(01)</div>
                         <h3 class="p-title display">RUA by Juhi</h3>
@@ -1113,12 +1119,11 @@
                         </div>
                     </div>
                     <div class="p-media">
-                        <div class="ph">RUA cover — block-print reel still</div><span class="view-btn">View
-                            project</span>
+                        <div class="ph">RUA cover — block-print reel still</div><span class="view-btn">Coming soon</span>
                     </div>
                 </article>
 
-                <article class="project reveal" data-case="luma">
+                <article class="project reveal soon" aria-disabled="true" data-case="luma">
                     <div class="p-text">
                         <div class="p-index">(02)</div>
                         <h3 class="p-title display">Luma Alibaug</h3>
@@ -1127,12 +1132,11 @@
                             around.</p>
                     </div>
                     <div class="p-media">
-                        <div class="ph">Luma cover — villa / lifestyle frame</div><span class="view-btn">View
-                            project</span>
+                        <div class="ph">Luma cover — villa / lifestyle frame</div><span class="view-btn">Coming soon</span>
                     </div>
                 </article>
 
-                <article class="project reveal" data-case="destiny">
+                <article class="project reveal soon" aria-disabled="true" data-case="destiny">
                     <div class="p-text">
                         <div class="p-index">(03)</div>
                         <h3 class="p-title display">Destiny Travels</h3>
@@ -1145,7 +1149,7 @@
                         </div>
                     </div>
                     <div class="p-media">
-                        <div class="ph">Destiny cover — 2.2M reel still</div><span class="view-btn">View project</span>
+                        <div class="ph">Destiny cover — 2.2M reel still</div><span class="view-btn">Coming soon</span>
                     </div>
                 </article>
 
@@ -1494,7 +1498,7 @@
             if (!current) return; current.classList.remove('open'); current = null;
             closeBtn.hidden = true; document.body.style.overflow = '';
         }
-        document.querySelectorAll('[data-case]').forEach(el => el.addEventListener('click', () => openCase(el.dataset.case)));
+        document.querySelectorAll('[data-case]:not(.soon)').forEach(el => el.addEventListener('click', () => openCase(el.dataset.case)));
         closeBtn.addEventListener('click', closeCase);
         addEventListener('keydown', e => { if (e.key === 'Escape') closeCase() });
     </script>
