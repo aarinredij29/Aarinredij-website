@@ -112,7 +112,8 @@
         .hero {
             position: relative;
             height: 100vh;
-            min-height: 620px;
+            height: 100svh;
+            min-height: 560px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -1028,7 +1029,16 @@
             }
 
             .svc-item h3 {
-                font-size: clamp(36px, 10vw, 56px)
+                font-size: clamp(26px, 8.5vw, 56px);
+                overflow-wrap: anywhere
+            }
+
+            .clocks > span {
+                display: block
+            }
+
+            .clocks .sep {
+                display: none
             }
 
             .svc-item p {
@@ -1074,6 +1084,17 @@
 
             .case-inner {
                 padding: 90px 16px 90px
+            }
+        }
+
+        @media (max-width:380px) {
+            nav {
+                gap: 10px;
+                font-size: 11px
+            }
+
+            .dial-on .svc-sticky {
+                grid-template-columns: 72px 1fr
             }
         }
 
@@ -1126,7 +1147,7 @@
             </div>
         </div>
         <div class="hero-foot">
-            <div class="clocks"><span>Mumbai → Dubai · Dec 2026</span> <span>· <span id="clock">--:--</span> IST · <span id="clock-dxb">--:--</span> GST</span></div>
+            <div class="clocks"><span>Mumbai → Dubai · Dec 2026</span> <span><span class="sep">· </span><span id="clock">--:--</span> IST · <span id="clock-dxb">--:--</span> GST</span></div>
         </div>
     </div>
 
