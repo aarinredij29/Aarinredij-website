@@ -1111,10 +1111,92 @@
                 transform: none
             }
         }
+        /* ---------- cursor: trailing square ---------- */
+        .cur-dot {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 9px;
+            height: 9px;
+            margin: -4.5px 0 0 -4.5px;
+            background: #fff;
+            mix-blend-mode: difference;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity .25s, width .25s, height .25s, margin .25s;
+            will-change: transform
+        }
+
+        .cur-dot.on { opacity: 1 }
+        .cur-dot.hide { opacity: 0 }
+
+        .cur-dot.link {
+            width: 14px;
+            height: 14px;
+            margin: -7px 0 0 -7px
+        }
+
+        /* ---------- cursor: hero photo glitch ---------- */
+        .hero-photo .gl {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity .15s
+        }
+
+        .hero-photo.glitching .gl { opacity: 1 }
+
+        .gl img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: 50% 100%
+        }
+
+        .gl .ch {
+            mix-blend-mode: screen;
+            opacity: .85
+        }
+
+        .gl .ch.r { filter: url(#fx-red) }
+        .gl .ch.c { filter: url(#fx-cyan) }
+
+        .gl .slice {
+            position: absolute;
+            inset: 0;
+            overflow: hidden
+        }
+
+        .gl .slice img { filter: contrast(1.25) saturate(1.6) }
+
+        .gl .scan {
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .18) 0 1px, transparent 1px 3px)
+        }
+
+        /* ---------- cursor: project label follows pointer ---------- */
+        .p-media .view-btn { transition: opacity .35s }
+        .cursor-fx .p-media .view-btn { left: 0; top: 0; transform: none; will-change: transform }
+
+        @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+            .cur-dot, .hero-photo .gl { display: none }
+        }
     </style>
 </head>
 
 <body>
+
+    <!-- colour-channel filters for the hero glitch -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <filter id="fx-red"><feColorMatrix type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" /></filter>
+        <filter id="fx-cyan"><feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" /></filter>
+    </svg>
+    <div class="cur-dot" aria-hidden="true"></div>
 
     <header>
         <a href="#top" class="logo">Aarin<span>Redij</span></a>
@@ -1586,6 +1668,119 @@
         document.querySelectorAll('[data-case]:not(.soon)').forEach(el => el.addEventListener('click', () => openCase(el.dataset.case)));
         closeBtn.addEventListener('click', closeCase);
         addEventListener('keydown', e => { if (e.key === 'Escape') closeCase() });
+
+        /* ================= CURSOR EFFECTS ================= */
+        const fineCursor = matchMedia('(hover: hover) and (pointer: fine)').matches;
+        const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        /* 1 — text scramble: letters shuffle, then settle left-to-right */
+        const GLYPHS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        function scramble(el) {
+            if (calm || el._busy) return;
+            const final = el._text || (el._text = el.textContent);
+            el._busy = true;
+            const len = final.length, dur = Math.min(700, 220 + len * 28), t0 = performance.now();
+            const step = now => {
+                const p = Math.min(1, (now - t0) / dur), fixed = Math.floor(p * len);
+                let out = '';
+                for (let i = 0; i < len; i++) {
+                    const ch = final[i];
+                    out += (i < fixed || !/[a-z]/i.test(ch)) ? ch
+                        : (ch === ch.toLowerCase() ? GLYPHS[Math.random() * 26 | 0].toLowerCase() : GLYPHS[Math.random() * 26 | 0]);
+                }
+                el.textContent = out;
+                if (p < 1) requestAnimationFrame(step); else { el.textContent = final; el._busy = false }
+            };
+            requestAnimationFrame(step);
+        }
+        const scrambleEls = [...document.querySelectorAll('nav a, .tag, .work-head h2, .p-title, .contact h2, .case h1, .case h4, .svc-item h3, .footer-links a, footer a, .cta')]
+            .filter(el => el.children.length === 0 && el.textContent.trim());
+        // scramble once as each one scrolls into view…
+        const sio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { scramble(e.target); sio.unobserve(e.target) } }), { threshold: .6 });
+        scrambleEls.forEach(el => { sio.observe(el); el.addEventListener('mouseenter', () => scramble(el)) }); // …and again on hover
+
+        if (fineCursor && !calm) {
+            document.documentElement.classList.add('cursor-fx');
+
+            /* 2 — trailing square that lags behind the pointer */
+            const dot = document.querySelector('.cur-dot');
+            let mx = -100, my = -100, dx = -100, dy = -100;
+            addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.classList.add('on') }, { passive: true });
+            document.addEventListener('mouseleave', () => dot.classList.remove('on'));
+            (function loop() {
+                dx += (mx - dx) * .14; dy += (my - dy) * .14;
+                dot.style.transform = `translate3d(${dx}px,${dy}px,0)`;
+                requestAnimationFrame(loop);
+            })();
+            // grow slightly on links, hide over project images (the label takes over there)
+            document.querySelectorAll('a, button, [data-case]:not(.soon) .p-title').forEach(el => {
+                el.addEventListener('mouseenter', () => dot.classList.add('link'));
+                el.addEventListener('mouseleave', () => dot.classList.remove('link'));
+            });
+
+            /* 3 — project label follows the pointer inside each image */
+            document.querySelectorAll('.p-media').forEach(media => {
+                const btn = media.querySelector('.view-btn');
+                if (!btn) return;
+                let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0, hovering = false;
+                const centre = () => { const r = media.getBoundingClientRect(); tx = (r.width - btn.offsetWidth) / 2; ty = (r.height - btn.offsetHeight) / 2 };
+                const run = () => {
+                    cx += (tx - cx) * .18; cy += (ty - cy) * .18;
+                    btn.style.transform = `translate3d(${cx}px,${cy}px,0)`;
+                    raf = (Math.abs(tx - cx) + Math.abs(ty - cy) > .3 || hovering) ? requestAnimationFrame(run) : 0;
+                };
+                const kick = () => { if (!raf) raf = requestAnimationFrame(run) };
+                centre(); cx = tx; cy = ty; btn.style.transform = `translate3d(${cx}px,${cy}px,0)`;
+                addEventListener('resize', () => { centre(); kick() });
+                media.addEventListener('mouseenter', () => { hovering = true; dot.classList.add('hide'); kick() });
+                media.addEventListener('mousemove', e => {
+                    const r = media.getBoundingClientRect();
+                    tx = Math.min(r.width - btn.offsetWidth, Math.max(0, e.clientX - r.left + 14));
+                    ty = Math.min(r.height - btn.offsetHeight, Math.max(0, e.clientY - r.top + 14));
+                    kick();
+                });
+                media.addEventListener('mouseleave', () => { hovering = false; dot.classList.remove('hide'); centre(); kick() });
+            });
+
+            /* 4 — hero photo: RGB-split + sliced glitch around the pointer */
+            const photo = document.querySelector('.hero-photo');
+            const src = photo && photo.querySelector('img');
+            if (photo && src) {
+                const gl = document.createElement('div');
+                gl.className = 'gl'; gl.setAttribute('aria-hidden', 'true');
+                const mk = cls => { const i = document.createElement('img'); i.src = src.currentSrc || src.src; i.alt = ''; if (cls) i.className = cls; return i };
+                const red = mk('ch r'), cyan = mk('ch c');
+                gl.append(red, cyan);
+                const slices = Array.from({ length: 7 }, () => { const s = document.createElement('div'); s.className = 'slice'; s.append(mk()); gl.append(s); return s });
+                const scan = document.createElement('div'); scan.className = 'scan'; gl.append(scan);
+                photo.append(gl);
+
+                let idle = 0, pending = false, py = .5;
+                const jitter = () => {
+                    pending = false;
+                    const amp = 6 + Math.random() * 10;
+                    red.style.transform = `translate(${-amp}px, ${Math.random() * 3 - 1.5}px)`;
+                    cyan.style.transform = `translate(${amp}px, ${Math.random() * 3 - 1.5}px)`;
+                    // bands bunch up around the pointer's height
+                    slices.forEach((s, i) => {
+                        const centre = py * 100 + (Math.random() - .5) * 46;
+                        const h = 1.5 + Math.random() * 6;
+                        const top = Math.max(0, Math.min(100 - h, centre - h / 2));
+                        s.style.clipPath = `inset(${top}% 0 ${100 - top - h}% 0)`;
+                        s.style.transform = `translateX(${(Math.random() - .5) * (i % 2 ? 70 : 34)}px)`;
+                    });
+                };
+                photo.addEventListener('mousemove', e => {
+                    const r = photo.getBoundingClientRect();
+                    py = (e.clientY - r.top) / r.height;
+                    photo.classList.add('glitching');
+                    if (!pending) { pending = true; requestAnimationFrame(jitter) }
+                    clearTimeout(idle);
+                    idle = setTimeout(() => photo.classList.remove('glitching'), 180); // settles when the pointer rests
+                });
+                photo.addEventListener('mouseleave', () => { clearTimeout(idle); photo.classList.remove('glitching') });
+            }
+        }
     </script>
 </body>
 
