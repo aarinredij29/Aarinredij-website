@@ -1099,8 +1099,11 @@
         }
 
         @media (prefers-reduced-motion:reduce) {
-            .row .track {
-                animation: none
+            /* keep the hero marquee moving, just slower and gentler */
+            .row .track,
+            .row.rev .track,
+            .row:nth-child(3) .track {
+                animation-duration: 70s
             }
 
             .reveal {
