@@ -133,8 +133,16 @@
 
         .row:nth-child(3) {
             z-index: 2;
+            color: var(--ink)
+        }
+
+        /* white copy of row 3, clipped to the photo box so the text turns pure white over it */
+        .row .over {
+            position: absolute;
+            inset: 0;
+            display: flex;
             color: #fff;
-            mix-blend-mode: difference
+            clip-path: inset(0 100% 0 0)
         }
 
         .row {
@@ -1088,6 +1096,10 @@
             <div class="row">
                 <div class="track">Storyteller · Storyteller · Storyteller · Storyteller ·</div>
                 <div class="track">Storyteller · Storyteller · Storyteller · Storyteller ·</div>
+                <div class="over" aria-hidden="true">
+                    <div class="track">Storyteller · Storyteller · Storyteller · Storyteller ·</div>
+                    <div class="track">Storyteller · Storyteller · Storyteller · Storyteller ·</div>
+                </div>
             </div>
         </div>
         <div class="hero-foot">
@@ -1495,6 +1507,20 @@
             const queue = () => { if (!queued) { queued = true; requestAnimationFrame(turn) } };
             addEventListener('scroll', queue, { passive: true }); addEventListener('resize', queue); turn();
         }
+
+        /* clip the white hero row to the photo box */
+        (function () {
+            const photo = document.querySelector('.hero-photo');
+            const over = document.querySelector('.row .over');
+            if (!photo || !over) return;
+            function fit() {
+                const p = photo.getBoundingClientRect(), o = over.getBoundingClientRect();
+                const t = Math.max(0, p.top - o.top), b = Math.max(0, o.bottom - p.bottom);
+                const l = Math.max(0, p.left - o.left), r = Math.max(0, o.right - p.right);
+                over.style.clipPath = `inset(${t}px ${r}px ${b}px ${l}px)`;
+            }
+            fit(); addEventListener('resize', fit); addEventListener('load', fit);
+        })();
 
         /* case study overlays */
         const closeBtn = document.getElementById('closeCase');
