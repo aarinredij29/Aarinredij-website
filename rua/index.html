@@ -756,7 +756,8 @@
         }
         const scr = [...document.querySelectorAll('nav a, .tag, .story h4, .story h2, .reels-head h2, .results h2, .next h3, .meta small, .back, .foot a')].filter(el => !el.children.length);
         const sio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { scramble(e.target); sio.unobserve(e.target) } }), { threshold: .6 });
-        scr.forEach(el => { sio.observe(el); el.addEventListener('mouseenter', () => scramble(el)) });
+        const HOVER_SCRAMBLE = 'nav a, .tag, .meta small, .back, .foot a'; // big headings only scramble once, on scroll-in
+        scr.forEach(el => { sio.observe(el); if (el.matches(HOVER_SCRAMBLE)) el.addEventListener('mouseenter', () => scramble(el)) });
 
         /* ---------- cursor: trailing square + follow label ---------- */
         if (fine && !calm) {

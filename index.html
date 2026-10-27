@@ -1802,7 +1802,9 @@
             .filter(el => el.children.length === 0 && el.textContent.trim());
         // scramble once as each one scrolls into view…
         const sio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { scramble(e.target); sio.unobserve(e.target) } }), { threshold: .6 });
-        scrambleEls.forEach(el => { sio.observe(el); el.addEventListener('mouseenter', () => scramble(el)) }); // …and again on hover
+        // …and again on hover, but only for small text: big headings re-scrambling under the cursor looks like a glitch
+        const HOVER_SCRAMBLE = 'nav a, .tag, footer a, .cta';
+        scrambleEls.forEach(el => { sio.observe(el); if (el.matches(HOVER_SCRAMBLE)) el.addEventListener('mouseenter', () => scramble(el)) });
 
         if (fineCursor && !calm) {
             document.documentElement.classList.add('cursor-fx');
