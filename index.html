@@ -7,6 +7,21 @@
     <title>Aarin Redij — Content Strategist | Relocating to Dubai</title>
     <meta name="description"
         content="Content strategist and founder of V3 Mindset, relocating from Mumbai to Dubai in December 2026. Content strategy, reels and campaigns for luxury, hospitality and fashion brands across Dubai and the UAE.">
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="https://www.aarinredij.work/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.aarinredij.work/">
+    <meta property="og:title" content="Aarin Redij — Content Strategist">
+    <meta property="og:description" content="Content strategist and founder of V3 Mindset, relocating from Mumbai to Dubai in December 2026. Strategy, reels and campaigns for luxury, hospitality and fashion brands.">
+    <meta property="og:image" content="https://www.aarinredij.work/images/og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;800&display=swap"
@@ -30,8 +45,12 @@
         }
 
         html {
-            scroll-behavior: smooth
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%
         }
+
+        [hidden] { display: none !important }
 
         body {
             background: var(--paper);
@@ -1222,6 +1241,18 @@
         .stairs.in i { transform-origin: 50% 100%; transform: scaleY(1) }
 
         @media (prefers-reduced-motion: reduce) { .stairs { display: none } }
+
+        /* ---------- touch screens: bigger tap areas, no hover-only hints ---------- */
+        @media (hover: none), (pointer: coarse) {
+            nav a, footer a, .foot a, .back, .desc a, .svc-more a { position: relative }
+            nav a::before, footer a::before, .foot a::before, .back::before, .desc a::before, .svc-more a::before {
+                content: "";
+                position: absolute;
+                inset: -14px -6px
+            }
+            .project:not(.soon) .view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1) }
+        }
+
     </style>
 </head>
 

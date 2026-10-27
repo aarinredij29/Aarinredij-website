@@ -7,6 +7,21 @@
     <title>RUA by Juhi — Case Study | Aarin Redij</title>
     <meta name="description"
         content="How content strategy took handcrafted couture label RUA by Juhi from 324 to 1,140 followers and 168K views in 30 days.">
+    <link rel="icon" href="../favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+    <link rel="manifest" href="../site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="canonical" href="https://www.aarinredij.work/rua/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.aarinredij.work/rua/">
+    <meta property="og:title" content="RUA by Juhi — Case Study | Aarin Redij">
+    <meta property="og:description" content="How content strategy took a handcrafted couture label from 324 to 1,140 followers and 168K views in 30 days.">
+    <meta property="og:image" content="https://www.aarinredij.work/images/rua/hero.jpg">
+    <meta property="og:image:width" content="1920">
+    <meta property="og:image:height" content="1080">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;800&display=swap"
@@ -24,7 +39,8 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0 }
-        html { scroll-behavior: smooth }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100% }
+        [hidden] { display: none !important }
 
         body {
             background: var(--paper);
@@ -480,6 +496,17 @@
             .next { grid-template-columns: 1fr; padding: 90px var(--pad); min-height: 0 }
         }
 
+        /* ---------- touch screens: bigger tap areas, no hover-only hints ---------- */
+        @media (hover: none), (pointer: coarse) {
+            nav a, footer a, .foot a, .back, .desc a, .svc-more a { position: relative }
+            nav a::before, footer a::before, .foot a::before, .back::before, .desc a::before, .svc-more a::before {
+                content: "";
+                position: absolute;
+                inset: -14px -6px
+            }
+            .project:not(.soon) .view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1) }
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .reveal, .title .ch { opacity: 1; transform: none; transition: none }
             .stairs, .cur-dot { display: none }
@@ -688,10 +715,14 @@
             slot.append(ph);
             if (isReel) {
                 tryLoad(slot, VID, (src, ok, fail) => {
-                    const v = document.createElement('video');
-                    Object.assign(v, { muted: true, loop: true, playsInline: true, preload: 'metadata' });
-                    v.setAttribute('muted', ''); v.setAttribute('playsinline', '');
-                    v.onloadeddata = () => { ok(v); vio.observe(v) }; v.onerror = fail; v.src = src;
+                    fetch(src, { method: 'HEAD' }).then(r => {
+                        if (!r.ok) return fail();
+                        const v = document.createElement('video');
+                        v.muted = true; v.loop = true; v.playsInline = true; v.preload = 'metadata';
+                        ['muted', 'playsinline', 'webkit-playsinline', 'loop'].forEach(a => v.setAttribute(a, ''));
+                        v.poster = slot.dataset.src + '.jpg'; // still frame shown before it plays
+                        v.src = src; ok(v); vio.observe(v);
+                    }).catch(fail);
                 });
                 const s = document.createElement('span'); s.className = 'sound'; s.textContent = 'Sound off'; slot.append(s);
                 slot.addEventListener('click', () => {
