@@ -542,15 +542,11 @@
             display: grid
         }
 
-        /* outgoing service leaves fast; incoming arrives just as it's gone — no stacked blur, no empty gap */
+        /* services are positioned straight from the scroll position every frame (no timed transitions to lag or stack) */
         .dial-on .svc-item {
             grid-area: 1/1;
             margin: 0;
-            transition: transform .35s cubic-bezier(.4, 0, 1, 1), opacity .2s linear, filter .2s linear
-        }
-
-        .dial-on .svc-item.on {
-            transition: transform .6s cubic-bezier(.2, .7, .2, 1) .14s, opacity .4s ease .14s, filter .4s ease .14s
+            will-change: transform, opacity
         }
 
         .dial-label {
@@ -596,7 +592,7 @@
             gap: 12px;
             transform-origin: 0 50%;
             white-space: nowrap;
-            transition: transform .9s cubic-bezier(.65, 0, .35, 1), opacity .9s
+            will-change: transform, opacity
         }
 
         .mark i {
@@ -1675,7 +1671,7 @@
         };
         addEventListener('scroll', paint, { passive: true }); paint();
 
-        /* services dial: numbers ride a rotating ring while the matching service blurs in on the right */
+        /* services dial: numbers ride a rotating ring while the services scroll through, both driven directly by scroll */
         const svcSec = document.getElementById('services');
         if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
             svcSec.classList.add('dial-on');
@@ -1686,32 +1682,34 @@
                 m.className = 'mark'; m.innerHTML = `<i></i><span>${String(i + 1).padStart(2, '0')}</span>`;
                 centre.appendChild(m); return m;
             });
-            const STEP = 30;
-            let queued = false, current = -1;
-            // scroll only picks the active service; CSS transitions play each switch to completion
+            const STEP = 30, n = items.length;
+            let queued = false, gap = 240;
+            // each service rests in the centre, then hands over to the next as you scroll (smoothstep between rests)
+            const ease = t => { const x = Math.min(1, Math.max(0, (t - .28) / .44)); return x * x * (3 - 2 * x) };
+            const measure = () => { gap = Math.max(...items.map(el => el.offsetHeight)) + 48 }; // a full card apart: never overlap
             const turn = () => {
                 queued = false;
-                const r = scroller.getBoundingClientRect(), span = r.height - innerHeight;
-                const on = Math.round(Math.min(1, Math.max(0, -r.top / span)) * (items.length - 1));
-                if (on === current) return;
-                current = on;
+                const r = scroller.getBoundingClientRect(), span = Math.max(1, r.height - innerHeight);
+                const raw = Math.min(1, Math.max(0, -r.top / span)) * (n - 1);
+                const k = Math.min(n - 1, Math.floor(raw)), p = k >= n - 1 ? n - 1 : k + ease(raw - k);
                 marks.forEach((m, i) => {
-                    const d = i - on;
+                    const d = i - p, ad = Math.abs(d);
                     m.style.transform = `rotate(${d * STEP}deg) translateX(var(--r))`;
-                    m.style.opacity = Math.max(0, 1 - Math.abs(d) * .3);
-                    m.classList.toggle('on', d === 0);
+                    m.style.opacity = Math.max(0, 1 - ad * .3);
+                    m.classList.toggle('on', ad < .5);
                 });
                 items.forEach((el, i) => {
-                    const d = i - on;
-                    el.style.transform = `translateY(${Math.sign(d) * 28}px)`;
-                    el.style.opacity = d ? 0 : 1;
-                    el.style.filter = `blur(${d ? 5 : 0}px)`;
-                    el.style.pointerEvents = d ? 'none' : '';
-                    el.classList.toggle('on', d === 0);
+                    const d = i - p, ad = Math.abs(d);
+                    el.style.transform = `translate3d(0, ${(d * gap).toFixed(1)}px, 0)`;
+                    el.style.opacity = Math.max(0, 1 - ad * 1.2).toFixed(3); // ≥ 0.4 each at the handover: never empty
+                    el.style.pointerEvents = ad < .5 ? '' : 'none';
+                    el.classList.toggle('on', ad < .5);
                 });
             };
             const queue = () => { if (!queued) { queued = true; requestAnimationFrame(turn) } };
-            addEventListener('scroll', queue, { passive: true }); addEventListener('resize', queue); turn();
+            addEventListener('scroll', queue, { passive: true });
+            addEventListener('resize', () => { measure(); queue() }); measure(); turn();
+            document.fonts && document.fonts.ready.then(() => { measure(); queue() });
         }
 
         /* clip the white hero row to the photo box */
@@ -1799,7 +1797,7 @@
             };
             requestAnimationFrame(step);
         }
-        const scrambleEls = [...document.querySelectorAll('nav a, .tag, .work-head h2, .p-title, .contact h2, .case h1, .case h4, .svc-item h3, .footer-links a, footer a, .cta')]
+        const scrambleEls = [...document.querySelectorAll('nav a, .tag, .work-head h2, .p-title, .contact h2, .case h1, .case h4, .footer-links a, footer a, .cta')]
             .filter(el => el.children.length === 0 && el.textContent.trim());
         // scramble once as each one scrolls into view…
         const sio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { scramble(e.target); sio.unobserve(e.target) } }), { threshold: .6 });
