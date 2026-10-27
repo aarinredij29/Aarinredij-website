@@ -1186,6 +1186,42 @@
         @media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
             .cur-dot, .hero-photo .gl { display: none }
         }
+
+        /* real cover image on a project card, once uploaded */
+        .p-media .p-cover {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .8s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        .project:hover .p-media .p-cover { transform: scale(1.04) }
+
+        /* page transition: black staircase */
+        .stairs {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            pointer-events: none
+        }
+
+        .stairs i {
+            flex: 1;
+            height: 100%;
+            margin-left: -1px;
+            background: #0b0c0e;
+            transform: scaleY(0);
+            transform-origin: 50% 0;
+            transition: transform .55s cubic-bezier(.7, 0, .3, 1)
+        }
+
+        .stairs.cover i { transform: scaleY(1); transition: none }
+        .stairs.in i { transform-origin: 50% 100%; transform: scaleY(1) }
+
+        @media (prefers-reduced-motion: reduce) { .stairs { display: none } }
     </style>
 </head>
 
@@ -1197,6 +1233,7 @@
         <filter id="fx-cyan"><feColorMatrix type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 1 0" /></filter>
     </svg>
     <div class="cur-dot" aria-hidden="true"></div>
+    <div class="stairs" aria-hidden="true"></div>
 
     <header>
         <a href="#top" class="logo">Aarin<span>Redij</span></a>
@@ -1256,7 +1293,7 @@
             </div>
             <div class="projects">
 
-                <article class="project reveal soon" aria-disabled="true" data-case="rua">
+                <article class="project reveal" data-href="rua/" role="link" tabindex="0" aria-label="View project: RUA by Juhi">
                     <div class="p-text">
                         <div class="p-index">(01)</div>
                         <h3 class="p-title display">RUA by Juhi</h3>
@@ -1269,7 +1306,7 @@
                         </div>
                     </div>
                     <div class="p-media">
-                        <div class="ph">RUA cover — block-print reel still</div><span class="view-btn">Coming soon</span>
+                        <div class="ph">RUA cover — block-print reel still</div><img class="p-cover" data-src="images/rua/cover" alt="RUA by Juhi" hidden><span class="view-btn">View project</span>
                     </div>
                 </article>
 
@@ -1668,6 +1705,36 @@
         document.querySelectorAll('[data-case]:not(.soon)').forEach(el => el.addEventListener('click', () => openCase(el.dataset.case)));
         closeBtn.addEventListener('click', closeCase);
         addEventListener('keydown', e => { if (e.key === 'Escape') closeCase() });
+
+        /* ================= PROJECT PAGES + STAIRCASE TRANSITION ================= */
+        (function () {
+            const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const stairs = document.querySelector('.stairs');
+            const COLS = innerWidth < 700 ? 6 : 10;
+            for (let i = 0; i < COLS; i++) { const b = document.createElement('i'); b.style.transitionDelay = i * 45 + 'ms'; stairs.append(b) }
+            // coming back from a project page: lift the stairs off
+            let arrived = false;
+            try { arrived = sessionStorage.getItem('stairs') === '1'; sessionStorage.removeItem('stairs') } catch (e) { }
+            if (arrived && !reduce) { stairs.classList.add('cover'); requestAnimationFrame(() => requestAnimationFrame(() => stairs.classList.remove('cover'))) }
+            addEventListener('pageshow', e => { if (e.persisted) stairs.classList.remove('in', 'cover') });
+            const go = href => {
+                if (reduce) { location.href = href; return }
+                try { sessionStorage.setItem('stairs', '1') } catch (e) { }
+                stairs.classList.add('in');
+                setTimeout(() => location.href = href, 550 + COLS * 45);
+            };
+            document.querySelectorAll('[data-href]').forEach(card => {
+                card.addEventListener('click', e => { if (e.metaKey || e.ctrlKey) { open(card.dataset.href); return } go(card.dataset.href) });
+                card.addEventListener('keydown', e => { if (e.key === 'Enter') go(card.dataset.href) });
+            });
+            // show a real cover photo once it's uploaded (images/rua/cover.jpg etc.)
+            document.querySelectorAll('.p-cover[data-src]').forEach(img => {
+                const ext = ['jpg', 'jpeg', 'png', 'webp']; let i = 0;
+                img.onload = () => { img.hidden = false };
+                img.onerror = () => { if (++i < ext.length) img.src = `${img.dataset.src}.${ext[i]}` };
+                img.src = `${img.dataset.src}.${ext[0]}`;
+            });
+        })();
 
         /* ================= CURSOR EFFECTS ================= */
         const fineCursor = matchMedia('(hover: hover) and (pointer: fine)').matches;
