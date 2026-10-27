@@ -3,7 +3,7 @@
 Drop files here with these exact names. Each space on aarinredij.work/rua/ fills in automatically once its file is uploaded.
 
 Pictures (.jpg, .jpeg, .png or .webp):
-- cover → RUA card on the home page (landscape, 16:10)
+- cover → not needed: the home page card uses hero
 - hero  → big wide picture at the top of the case study (16:9)
 - photo-1, photo-2 → two posts under the big picture (portrait, 4:5)
 
