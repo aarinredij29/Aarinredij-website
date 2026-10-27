@@ -90,12 +90,10 @@
 
         /* ---------- title ---------- */
         .intro {
-            min-height: 78vh;
-            min-height: 78svh;
             display: flex;
             flex-direction: column;
             justify-content: flex-end;
-            padding: 140px var(--pad) 40px
+            padding: clamp(130px, 16vh, 190px) var(--pad) 40px
         }
 
         .intro .tag { margin-bottom: 18px }
@@ -463,7 +461,7 @@
             :root { --pad: 16px }
             header { padding: 16px }
             nav { gap: 14px; font-size: 12px }
-            .intro { min-height: 62svh; padding-top: 120px }
+            .intro { padding-top: 110px }
             .meta { grid-template-columns: 1fr 1fr; gap: 22px; padding-bottom: 60px }
             .meta .desc { grid-column: 1 / -1 }
             .grid-2 { grid-template-columns: 1fr; gap: 14px; padding-top: 14px }
@@ -658,8 +656,9 @@
 
         /* ---------- title: letters drop in and settle ---------- */
         const title = document.getElementById('title');
-        title.innerHTML = [...title.textContent].map((c, i) =>
-            c === ' ' ? ' ' : `<span class="ch" style="transition-delay:${(arrived ? 450 : 150) + i * 45}ms">${c}</span>`).join('');
+        let ci = 0; // letters animate one by one, but each word stays on one line
+        title.innerHTML = title.textContent.trim().split(/\s+/).map(w =>
+            `<span style="white-space:nowrap">${[...w].map(c => `<span class="ch" style="transition-delay:${(arrived ? 450 : 150) + (ci++) * 45}ms">${c}</span>`).join('')}</span>`).join(' ');
         requestAnimationFrame(() => requestAnimationFrame(() => title.classList.add('in')));
 
         /* ---------- reveal on scroll ---------- */
