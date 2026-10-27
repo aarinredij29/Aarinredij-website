@@ -390,9 +390,11 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            background: var(--accent);
-            color: #fff;
+            background: #fff;
+            color: #000;
+            mix-blend-mode: difference;
             font-size: 11px;
+            font-weight: 500;
             letter-spacing: .12em;
             text-transform: uppercase;
             padding: 12px 18px;
@@ -769,20 +771,25 @@
                 el.addEventListener('mouseleave', () => dot.classList.remove('link'));
             });
 
-            const media = document.querySelector('.next .slot'), btn = media.querySelector('.follow-btn');
-            let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0, hov = false;
-            const centre = () => { const r = media.getBoundingClientRect(); tx = (r.width - btn.offsetWidth) / 2; ty = (r.height - btn.offsetHeight) / 2 };
-            const run = () => { cx += (tx - cx) * .18; cy += (ty - cy) * .18; btn.style.transform = `translate3d(${cx}px,${cy}px,0)`; raf = (Math.abs(tx - cx) + Math.abs(ty - cy) > .3 || hov) ? requestAnimationFrame(run) : 0 };
-            const kick = () => { if (!raf) raf = requestAnimationFrame(run) };
-            centre(); cx = tx; cy = ty; btn.style.transform = `translate3d(${cx}px,${cy}px,0)`;
-            addEventListener('resize', () => { centre(); kick() });
-            media.addEventListener('mouseenter', () => { hov = true; dot.classList.add('hide'); kick() });
-            media.addEventListener('mousemove', e => {
-                const r = media.getBoundingClientRect();
-                tx = Math.min(r.width - btn.offsetWidth, Math.max(0, e.clientX - r.left + 14));
-                ty = Math.min(r.height - btn.offsetHeight, Math.max(0, e.clientY - r.top + 14)); kick();
-            });
-            media.addEventListener('mouseleave', () => { hov = false; dot.classList.remove('hide'); centre(); kick() });
+            function followLabel(media, btn, hideWhenIdle) {
+                // label sits centred on the pointer and trails it slightly; it is clipped by the image edges
+                let tx = 0, ty = 0, cx = 0, cy = 0, raf = 0, hov = false;
+                const centre = () => { const r = media.getBoundingClientRect(); tx = (r.width - btn.offsetWidth) / 2; ty = (r.height - btn.offsetHeight) / 2 };
+                const at = e => { const r = media.getBoundingClientRect(); tx = e.clientX - r.left - btn.offsetWidth / 2; ty = e.clientY - r.top - btn.offsetHeight / 2 };
+                const paint = () => { btn.style.transform = `translate3d(${cx}px,${cy}px,0)` };
+                const run = () => { cx += (tx - cx) * .2; cy += (ty - cy) * .2; paint(); raf = (Math.abs(tx - cx) + Math.abs(ty - cy) > .3 || hov) ? requestAnimationFrame(run) : 0 };
+                const kick = () => { if (!raf) raf = requestAnimationFrame(run) };
+                centre(); cx = tx; cy = ty; paint();
+                addEventListener('resize', () => { if (!hov) { centre(); kick() } });
+                media.addEventListener('mouseenter', e => {
+                    hov = true; dot.classList.add('hide'); media.classList.add('hot'); at(e);
+                    if (hideWhenIdle) { cx = tx; cy = ty; paint() } // appear right where the pointer came in
+                    kick();
+                });
+                media.addEventListener('mousemove', e => { at(e); kick() });
+                media.addEventListener('mouseleave', () => { hov = false; dot.classList.remove('hide'); media.classList.remove('hot'); if (!hideWhenIdle) centre(); kick() });
+            }
+            followLabel(document.querySelector('.next .slot'), document.querySelector('.follow-btn'), false);
         }
     </script>
 </body>
