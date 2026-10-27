@@ -542,14 +542,15 @@
             display: grid
         }
 
+        /* outgoing service leaves fast; incoming arrives just as it's gone — no stacked blur, no empty gap */
         .dial-on .svc-item {
             grid-area: 1/1;
             margin: 0;
-            transition: transform .7s cubic-bezier(.2, .7, .2, 1), opacity .45s, filter .5s
+            transition: transform .35s cubic-bezier(.4, 0, 1, 1), opacity .2s linear, filter .2s linear
         }
 
         .dial-on .svc-item.on {
-            transition-delay: .15s
+            transition: transform .6s cubic-bezier(.2, .7, .2, 1) .14s, opacity .4s ease .14s, filter .4s ease .14s
         }
 
         .dial-label {
@@ -1702,9 +1703,9 @@
                 });
                 items.forEach((el, i) => {
                     const d = i - on;
-                    el.style.transform = `translateY(${Math.sign(d) * 80}px)`;
+                    el.style.transform = `translateY(${Math.sign(d) * 28}px)`;
                     el.style.opacity = d ? 0 : 1;
-                    el.style.filter = `blur(${d ? 12 : 0}px)`;
+                    el.style.filter = `blur(${d ? 5 : 0}px)`;
                     el.style.pointerEvents = d ? 'none' : '';
                     el.classList.toggle('on', d === 0);
                 });
