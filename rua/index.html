@@ -405,6 +405,12 @@
 
         .cursor-fx .follow-btn { left: 0; top: 0; transform: none; will-change: transform }
 
+        .next-link { display: block; cursor: pointer }
+        .next-link .slot img { transition: transform .8s cubic-bezier(.2, .7, .2, 1) }
+        .next-link:hover .slot img { transform: scale(1.04) }
+        .cursor-fx .next-link .follow-btn { opacity: 0; transition: opacity .25s }
+        .cursor-fx .next-link .slot.hot .follow-btn { opacity: 1 }
+
         .foot {
             display: flex;
             justify-content: space-between;
@@ -643,13 +649,15 @@
     <section class="next">
         <div class="reveal">
             <div class="tag">Next project</div>
-            <h3>Luma Alibaug</h3>
-            <div class="cat">Luxury Hospitality · 2026</div>
+            <h3>Destiny Travels</h3>
+            <div class="cat">Premium Car &amp; Coach Rental · 2026</div>
             <a class="back" href="../#work" data-go>← All work</a>
         </div>
-        <figure class="slot land reveal" data-src="../images/luma/cover" data-label="Luma cover">
-            <span class="follow-btn">Coming soon</span>
-        </figure>
+        <a class="next-link reveal" href="../destiny/" data-go aria-label="View project: Destiny Travels">
+            <figure class="slot land" data-src="../images/destiny/hero" data-label="Destiny Travels cover">
+                <span class="follow-btn">View project</span>
+            </figure>
+        </a>
     </section>
 
     <div class="foot">
@@ -790,7 +798,7 @@
                 media.addEventListener('mousemove', e => { at(e); kick() });
                 media.addEventListener('mouseleave', () => { hov = false; dot.classList.remove('hide'); media.classList.remove('hot'); if (!hideWhenIdle) centre(); kick() });
             }
-            followLabel(document.querySelector('.next .slot'), document.querySelector('.follow-btn'), false);
+            const nslot = document.querySelector('.next .slot'); followLabel(nslot, nslot.querySelector('.follow-btn'), !!nslot.closest('a'));
         }
     </script>
 </body>
