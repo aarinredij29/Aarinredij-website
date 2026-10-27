@@ -3,3 +3,6 @@ _scrape/
 *.mp4
 Hero Image.png
 About founder photo.png
+
+# site reels are published (raw source videos elsewhere stay ignored)
+!images/rua/*.mp4
