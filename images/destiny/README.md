@@ -11,4 +11,4 @@ Reels (.mp4, .webm or .mov — vertical 9:16, keep each under ~10 MB):
 - "More from the feed": photo-3 (post, 4:5) · reel-4 (reel) · photo-4 (post, 4:5)
 
 Catalog:
-- catalog → "The catalog", below More from the feed (wide, 16:9)
+- catalog/ → "The catalog": page-1.jpg … page-7.jpg (16:9) and destiny-catalog.pdf for the "View full catalog" link
