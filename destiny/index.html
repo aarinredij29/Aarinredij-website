@@ -259,63 +259,6 @@
         /* post · reel · post: widths in the ratio of 4:5 vs 9:16 so all three are the same height */
         .reels.mix { grid-template-columns: .8fr .5625fr .8fr; align-items: start }
 
-        /* ---------- catalog: swipe / arrow page-through ---------- */
-        .catalog { padding: 0 var(--pad) }
-        .cat-view { position: relative }
-        .cat-track {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            scrollbar-width: none;
-            aspect-ratio: 16/9;
-            background: #0f1d2b;
-            outline: none
-        }
-        .cat-track::-webkit-scrollbar { display: none }
-        .cat-track img {
-            flex: 0 0 100%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            scroll-snap-align: start;
-            scroll-snap-stop: always
-        }
-        .cat-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 52px;
-            height: 52px;
-            border: 0;
-            border-radius: 50%;
-            background: #fff;
-            color: var(--ink);
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 6px 24px rgba(0, 0, 0, .18);
-            transition: opacity .25s, transform .25s
-        }
-        .cat-btn:hover { transform: translateY(-50%) scale(1.06) }
-        .cat-btn.cat-prev { left: 18px }
-        .cat-btn.cat-next { right: 18px }
-        .cat-btn[disabled] { opacity: 0; pointer-events: none }
-        .cat-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            padding-top: 16px;
-            font-size: 12px;
-            letter-spacing: .12em;
-            text-transform: uppercase;
-            color: var(--muted)
-        }
-        .cat-count b { color: var(--ink); font-weight: 600 }
-        .cat-bar a { color: var(--ink); font-weight: 600; border-bottom: 1px solid currentColor; padding-bottom: 2px }
-        @media (max-width:860px) { .cat-btn { width: 40px; height: 40px; font-size: 16px } .cat-btn.cat-prev { left: 8px } .cat-btn.cat-next { right: 8px } }
-
         .reels-head {
             display: flex;
             justify-content: space-between;
@@ -629,7 +572,6 @@
           photo-1..3  → three posts under the big picture, one panorama (4:5 each)
           reel-1..3   → "The reels" (vertical 9:16)
           photo-4, reel-4, photo-5 → "More from the feed": post (4:5) · reel (9:16) · post (4:5)
-          catalog/    → "The catalog": page-1..7.jpg (16:9) + destiny-catalog.pdf
           (the home page Destiny card uses the hero picture)
     -->
 
@@ -693,30 +635,6 @@
         <figure class="slot port reveal" data-src="../images/destiny/photo-4" data-label="Post 4 — Comfort that travels with you"></figure>
         <figure class="slot reel reveal" data-src="../images/destiny/reel-4" data-label="Reel 4 — van tour"></figure>
         <figure class="slot port reveal" data-src="../images/destiny/photo-5" data-label="Post 5 — Mumbai to Shirdi"></figure>
-    </div>
-
-    <!-- CATALOG -->
-    <div class="reels-head reveal">
-        <h2>The catalog</h2>
-    </div>
-    <div class="catalog reveal" aria-roledescription="carousel" aria-label="Destiny Fleet Management company profile">
-        <div class="cat-view">
-            <div class="cat-track" tabindex="0">
-                <img src="../images/destiny/catalog/page-1.jpg" alt="Destiny Fleet Management company profile, page 1 of 7" width="1920" height="1080">
-                <img src="../images/destiny/catalog/page-2.jpg" alt="Destiny Fleet Management company profile, page 2 of 7" width="1920" height="1080" loading="lazy">
-                <img src="../images/destiny/catalog/page-3.jpg" alt="Destiny Fleet Management company profile, page 3 of 7" width="1920" height="1080" loading="lazy">
-                <img src="../images/destiny/catalog/page-4.jpg" alt="Destiny Fleet Management company profile, page 4 of 7" width="1920" height="1080" loading="lazy">
-                <img src="../images/destiny/catalog/page-5.jpg" alt="Destiny Fleet Management company profile, page 5 of 7" width="1920" height="1080" loading="lazy">
-                <img src="../images/destiny/catalog/page-6.jpg" alt="Destiny Fleet Management company profile, page 6 of 7" width="1920" height="1080" loading="lazy">
-                <img src="../images/destiny/catalog/page-7.jpg" alt="Destiny Fleet Management company profile, page 7 of 7" width="1920" height="1080" loading="lazy">
-            </div>
-            <button class="cat-btn cat-prev" aria-label="Previous page">←</button>
-            <button class="cat-btn cat-next" aria-label="Next page">→</button>
-        </div>
-        <div class="cat-bar">
-            <span class="cat-count"><b>01</b> / 07</span>
-            <a href="../images/destiny/catalog/destiny-catalog.pdf" target="_blank" rel="noopener">View full catalog (PDF) ↗</a>
-        </div>
     </div>
 
     <!-- RESULTS -->
@@ -832,21 +750,6 @@
                 });
             }
         });
-
-        /* ---------- catalog: arrows, keys, swipe, page counter ---------- */
-        (function () {
-            const track = document.querySelector('.cat-track'); if (!track) return;
-            const pages = track.children.length, prev = document.querySelector('.cat-prev'), next = document.querySelector('.cat-next');
-            const count = document.querySelector('.cat-count b');
-            const idx = () => Math.round(track.scrollLeft / track.clientWidth);
-            const go = i => track.scrollTo({ left: Math.max(0, Math.min(pages - 1, i)) * track.clientWidth, behavior: calm ? 'auto' : 'smooth' });
-            const sync = () => { const i = idx(); count.textContent = String(i + 1).padStart(2, '0'); prev.disabled = i === 0; next.disabled = i === pages - 1 };
-            prev.addEventListener('click', () => go(idx() - 1));
-            next.addEventListener('click', () => go(idx() + 1));
-            track.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); go(idx() + 1) } if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx() - 1) } });
-            let t; track.addEventListener('scroll', () => { cancelAnimationFrame(t); t = requestAnimationFrame(sync) }, { passive: true });
-            addEventListener('resize', () => go(idx())); sync();
-        })();
 
         /* ---------- text scramble on small labels ---------- */
         const G = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
