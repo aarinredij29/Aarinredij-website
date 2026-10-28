@@ -9,3 +9,6 @@ Pictures (.jpg, .jpeg, .png or .webp):
 Reels (.mp4, .webm or .mov — vertical 9:16, keep each under ~10 MB):
 - reel-1, reel-2, reel-3 → "The reels"
 - "More from the feed": photo-3 (post, 4:5) · reel-4 (reel) · photo-4 (post, 4:5)
+
+Catalog:
+- catalog → "The catalog", below More from the feed (wide, 16:9)
