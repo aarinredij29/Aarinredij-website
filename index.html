@@ -434,6 +434,72 @@
         .project.soon:hover .view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1) }
         .project.soon:hover .p-media .ph { transform: none }
 
+        /* ---------- showcase: main projects, scroll-driven (dark) ---------- */
+        .showcase { background: #07070b; color: #fff; padding: 0 0 40px; overflow: hidden }
+        .sc-list { padding: 0 }
+        .sc-item { --w: 52%; --t: 0; position: relative; height: 74vh; min-height: 460px; display: block; cursor: pointer; outline: none }
+        .sc-media { position: absolute; left: 0; top: 0; bottom: 0; height: auto; aspect-ratio: auto; width: var(--w); overflow: hidden; background: #15151c; will-change: width }
+        .sc-media::after { content: ""; position: absolute; inset: 0; background: #07070b; opacity: calc(.45 - var(--t) * .45); pointer-events: none }
+        .sc-bg { position: absolute; inset: -18%; width: 136%; height: 136%; object-fit: cover; filter: blur(22px) saturate(1.25) brightness(.62); transform: scale(1.04) }
+        .sc-fg { position: absolute; left: 50%; top: 50%; width: min(72%, 980px); aspect-ratio: 16/9; height: auto; object-fit: cover; transform: translate(-50%, -50%) scale(calc(.94 + var(--t) * .06)); box-shadow: 0 30px 80px rgba(0, 0, 0, .45) }
+        .sc-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--display); font-size: clamp(36px, 6vw, 96px); text-transform: uppercase; color: rgba(255, 255, 255, .08); background: radial-gradient(120% 90% at 30% 20%, #23232d, #0d0d13 70%); letter-spacing: .5px; text-align: center; padding: 20px }
+        .sc-info { position: absolute; top: 5%; left: calc(var(--w) + 22px); right: 70px; opacity: calc(.18 + var(--t) * .82); transform: translateY(calc((1 - var(--t)) * 14px)) }
+        .sc-title-row { display: flex; align-items: flex-start; gap: 8px }
+        .sc-title { white-space: nowrap; font-family: var(--body); font-weight: 300; font-size: clamp(28px, 3.3vw, 56px); line-height: 1; text-transform: uppercase; letter-spacing: .01em; position: relative; padding-bottom: 10px }
+        .sc-title::after { content: ""; position: absolute; right: 0; bottom: 0; height: 2px; width: calc(var(--t) * 22%); background: #fff }
+        .sc-title-row sup { font-size: 11px; color: #8a8d93; letter-spacing: .06em; text-transform: uppercase; margin-top: 4px }
+        .sc-meta { margin-top: 22px; font-size: 13px; line-height: 1.6; letter-spacing: .06em; text-transform: uppercase; color: #a3a6ad }
+        .sc-stat { margin-top: 18px; font-size: 14px; color: #d6d8dc; max-width: 360px; line-height: 1.5 }
+        .cursor-fx .sc-item .p-media .view-btn { opacity: 0 }
+        .cursor-fx .sc-item .p-media.hot .view-btn { opacity: 1 }
+
+        /* explore more (still on dark) */
+        .explore { padding: 70px 24px 40px; max-width: 1240px; margin: 0 auto }
+        .ex-head, .pg-head { display: flex; justify-content: space-between; gap: 16px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding-bottom: 14px; border-bottom: 1px solid #2a2a33; color: #a3a6ad }
+        .ex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 34px }
+        .ex-card { cursor: pointer; outline: none }
+        .ex-media { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #15151c }
+        .ex-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.2, .7, .2, 1) }
+        .ex-card:hover .ex-media img { transform: scale(1.05) }
+        .ex-media .sc-ph { font-size: clamp(28px, 4vw, 56px) }
+        .ex-cap { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-top: 16px }
+        .ex-title { font-weight: 300; font-size: 26px; text-transform: uppercase; letter-spacing: .01em }
+        .ex-cap span { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #8a8d93 }
+        .ex-cap b { margin-left: auto; font-weight: 500; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; transition: opacity .25s, transform .25s }
+        .ex-card:hover .ex-cap b { opacity: 1; transform: translateX(4px) }
+
+        /* ---------- playground: Dubai spec campaigns (light) ---------- */
+        .playground { background: #f1f1ef; padding: 90px 24px 110px }
+        .playground .pg-head { border-color: #d6d6d1; color: var(--ink); max-width: 1240px; margin: 0 auto }
+        .pg-note { max-width: 1240px; margin: 14px auto 0; font-size: 13px; color: var(--muted) }
+        .pg-grid { max-width: 1240px; margin: 46px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px }
+        .pg-card { margin: 0 }
+        .pg-media { position: relative; aspect-ratio: 16/10.5; overflow: hidden; transition: transform .45s cubic-bezier(.2, .7, .2, 1), box-shadow .45s }
+        .pg-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover }
+        .pg-soon { position: absolute; left: 14px; bottom: 12px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 255, 255, .85) }
+        .pg-card figcaption { margin-top: 14px; opacity: 0; transform: translateY(-6px); transition: opacity .35s, transform .35s }
+        .pg-card figcaption span { display: block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 4px }
+        .pg-title { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase }
+        .pg-card figcaption p { margin-top: 6px; font-size: 13px; line-height: 1.5; color: #555 }
+        .pg-card:hover .pg-media { transform: scale(1.06); box-shadow: 0 24px 60px rgba(0, 0, 0, .18) }
+        .pg-card:hover figcaption { opacity: 1; transform: none }
+        @media (hover: none), (pointer: coarse) { .pg-card figcaption { opacity: 1; transform: none } }
+
+        @media (max-width:860px) {
+            .sc-item { height: auto; min-height: 0; padding: 0 0 46px }
+            .sc-media { position: relative; width: 100% !important; aspect-ratio: 4/3; height: auto }
+            .sc-media::after { opacity: 0 }
+            .sc-fg { width: 84% }
+            .sc-info { position: static; padding: 18px 16px 0; opacity: 1; transform: none }
+            .sc-title { white-space: normal }
+            .sc-title::after { width: 22% }
+            .explore { padding: 50px 16px 30px }
+            .ex-grid { grid-template-columns: 1fr; gap: 34px }
+            .playground { padding: 70px 16px 80px }
+            .pg-head span:last-child { display: none }
+            .pg-grid { grid-template-columns: 1fr; gap: 34px }
+        }
+
         /* ---------- numbers ---------- */
         .numbers {
             background: var(--ink);
@@ -1278,7 +1344,7 @@
                 position: absolute;
                 inset: -14px -6px
             }
-            .project:not(.soon) .view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1) }
+            .project:not(.soon) .view-btn, .sc-item .view-btn { opacity: 1; transform: translate(-50%, -50%) scale(1) }
         }
 
     </style>
@@ -1344,85 +1410,92 @@
     </section>
 
     <!-- 03 WORK -->
-    <section id="work" style="padding-top:40px">
+    <section id="work" style="padding-top:40px;padding-bottom:60px">
         <div class="wrap">
             <div class="work-head reveal">
                 <h2 class="display">Featured Work</h2>
                 <small>(scroll to explore)</small>
             </div>
-            <div class="projects">
+        </div>
+    </section>
 
-                <article class="project reveal" data-href="rua/" role="link" tabindex="0" aria-label="View project: RUA by Juhi">
-                    <div class="p-text">
-                        <div class="p-index">(01)</div>
-                        <h3 class="p-title display">RUA by Juhi</h3>
-                        <div class="p-cat">Fashion / Couture · 2026</div>
-                        <p class="p-line">From 324 to 1,100+ followers in under two months — by letting the craft do the
-                            talking.</p>
-                        <div class="p-stat">
-                            <div><b>3.5×</b><span>followers</span></div>
-                            <div><b>168K</b><span>views / 30 days</span></div>
-                        </div>
-                    </div>
-                    <div class="p-media">
-                        <div class="ph">RUA cover — block-print reel still</div><img class="p-cover" data-src="images/rua/hero" alt="RUA by Juhi" hidden><span class="view-btn">View project</span>
-                    </div>
+    <!-- MAIN PROJECTS: scroll-driven showcase -->
+    <section class="showcase" aria-label="Selected projects">
+        <div class="sc-list">
+            <article class="sc-item" data-href="rua/" role="link" tabindex="0" aria-label="View project: RUA by Juhi">
+                <div class="sc-media p-media">
+                    <div class="sc-ph">RUA by Juhi</div>
+                    <img class="sc-bg lazy-src" data-src="images/rua/hero" alt="" hidden>
+                    <img class="sc-fg lazy-src" data-src="images/rua/hero" alt="RUA by Juhi" hidden>
+                    <span class="view-btn">View project</span>
+                </div>
+                <div class="sc-info">
+                    <div class="sc-title-row"><h3 class="sc-title">RUA by Juhi</h3><sup>[Open]</sup></div>
+                    <p class="sc-meta">Fashion / Couture · 2026<br>Role: Content strategy, shoots, Instagram growth</p>
+                    <p class="sc-stat">324 → 1,140 followers · 168K views in 30 days</p>
+                </div>
+            </article>
+            <article class="sc-item" data-href="destiny/" role="link" tabindex="0" aria-label="View project: Destiny Travels">
+                <div class="sc-media p-media">
+                    <div class="sc-ph">Destiny Travels</div>
+                    <img class="sc-bg lazy-src" data-src="images/destiny/hero" alt="" hidden>
+                    <img class="sc-fg lazy-src" data-src="images/destiny/hero" alt="Destiny Travels" hidden>
+                    <span class="view-btn">View project</span>
+                </div>
+                <div class="sc-info">
+                    <div class="sc-title-row"><h3 class="sc-title">Destiny Travels</h3><sup>[Open]</sup></div>
+                    <p class="sc-meta">Premium car &amp; coach rental · 2026<br>Role: Content strategy, founder reels, brand refresh</p>
+                    <p class="sc-stat">200 → 4,467 followers · 2.2M views on one reel</p>
+                </div>
+            </article>
+            <article class="sc-item" data-href="luma/" role="link" tabindex="0" aria-label="View project: Luma × Novu">
+                <div class="sc-media p-media">
+                    <div class="sc-ph">Luma × Novu</div>
+                    <img class="sc-bg lazy-src" data-src="images/luma/hero" alt="" hidden>
+                    <img class="sc-fg lazy-src" data-src="images/luma/hero" alt="Luma × Novu" hidden>
+                    <span class="view-btn">View project</span>
+                </div>
+                <div class="sc-info">
+                    <div class="sc-title-row"><h3 class="sc-title">Luma × Novu</h3><sup>[Open]</sup></div>
+                    <p class="sc-meta">Luxury hospitality &amp; F&amp;B · Alibaug · 2026<br>Role: Content strategy, creative direction, campaigns</p>
+                    <p class="sc-stat">A boutique villa and its restaurant, sold as a weekend</p>
+                </div>
+            </article>
+        </div>
+
+        <!-- EXPLORE MORE -->
+        <div class="explore">
+            <div class="ex-head"><span>Explore more</span><span>More client work</span></div>
+            <div class="ex-grid">
+                <article class="ex-card" data-href="lazee/" role="link" tabindex="0" aria-label="View project: Lazee">
+                    <div class="ex-media"><div class="sc-ph">Lazee</div><img class="lazy-src" data-src="images/lazee/hero" alt="Lazee" hidden></div>
+                    <div class="ex-cap"><h3 class="ex-title">Lazee</h3><span>Fashion / Clothing · Reels strategy</span><b>View project →</b></div>
                 </article>
-
-                <article class="project reveal" data-href="destiny/" role="link" tabindex="0" aria-label="View project: Destiny Travels">
-                    <div class="p-text">
-                        <div class="p-index">(02)</div>
-                        <h3 class="p-title display">Destiny Travels</h3>
-                        <div class="p-cat">Premium Car &amp; Coach Rental · 2026</div>
-                        <p class="p-line">200 to 4,467 followers — and a 2.2M-view reel — for a fleet company nobody
-                            followed.</p>
-                        <div class="p-stat">
-                            <div><b>22×</b><span>followers</span></div>
-                            <div><b>2.2M</b><span>views, one reel</span></div>
-                        </div>
-                    </div>
-                    <div class="p-media">
-                        <div class="ph">Destiny cover — 2.2M reel still</div><img class="p-cover" data-src="images/destiny/hero" alt="Destiny Travels" hidden><span class="view-btn">View project</span>
-                    </div>
+                <article class="ex-card" data-href="sky-breeze/" role="link" tabindex="0" aria-label="View project: Sky Breeze">
+                    <div class="ex-media"><div class="sc-ph">Sky Breeze</div><img class="lazy-src" data-src="images/sky-breeze/hero" alt="Sky Breeze" hidden></div>
+                    <div class="ex-cap"><h3 class="ex-title">Sky Breeze</h3><span>[Edit: category]</span><b>View project →</b></div>
                 </article>
-
-                <article class="project reveal" data-href="luma/" role="link" tabindex="0" aria-label="View project: Luma Alibaug">
-                    <div class="p-text">
-                        <div class="p-index">(03)</div>
-                        <h3 class="p-title display">Luma Alibaug</h3>
-                        <div class="p-cat">Luxury Hospitality &amp; F&amp;B · 2026</div>
-                        <p class="p-line">Giving a boutique Alibaug villa and its restaurant the feed of a weekend people plan around.</p>
-                    </div>
-                    <div class="p-media">
-                        <div class="ph">Luma Alibaug cover</div><img class="p-cover" data-src="images/luma/hero" alt="Luma Alibaug" hidden><span class="view-btn">View project</span>
-                    </div>
-                </article>
-
-                <article class="project reveal" data-href="lazee/" role="link" tabindex="0" aria-label="View project: Lazee">
-                    <div class="p-text">
-                        <div class="p-index">(04)</div>
-                        <h3 class="p-title display">Lazee</h3>
-                        <div class="p-cat">Fashion / Clothing · 2026</div>
-                        <p class="p-line">[Edit: one line about the Lazee project]</p>
-                    </div>
-                    <div class="p-media">
-                        <div class="ph">Lazee cover</div><img class="p-cover" data-src="images/lazee/hero" alt="Lazee" hidden><span class="view-btn">View project</span>
-                    </div>
-                </article>
-
-                <article class="project reveal" data-href="sky-breeze/" role="link" tabindex="0" aria-label="View project: Sky Breeze">
-                    <div class="p-text">
-                        <div class="p-index">(05)</div>
-                        <h3 class="p-title display">Sky Breeze</h3>
-                        <div class="p-cat">[Edit: category] · 2026</div>
-                        <p class="p-line">[Edit: one line about the Sky Breeze project]</p>
-                    </div>
-                    <div class="p-media">
-                        <div class="ph">Sky Breeze cover</div><img class="p-cover" data-src="images/sky-breeze/hero" alt="Sky Breeze" hidden><span class="view-btn">View project</span>
-                    </div>
-                </article>
-
             </div>
+        </div>
+    </section>
+
+    <!-- PLAYGROUND: Dubai spec campaigns -->
+    <section class="playground" id="playground">
+        <div class="pg-head"><span>Playground</span><span>Dubai spec campaigns / F&amp;B / Lifestyle / Real estate</span></div>
+        <p class="pg-note">Independent spec projects, not commissioned. Built to show how I’d approach Dubai brands.</p>
+        <div class="pg-grid">
+            <figure class="pg-card" data-slug="mirzam">
+                <div class="pg-media" style="background:linear-gradient(135deg,#3b2316,#8a5a2b 55%,#d9a35a)"><img class="lazy-src" data-src="images/play/mirzam" alt="Mirzam Chocolate" hidden><span class="pg-soon">Coming soon</span></div>
+                <figcaption><h3 class="pg-title">Mirzam Chocolate</h3><span>F&amp;B · Dubai</span><p>A content campaign for Dubai’s homegrown bean-to-bar chocolate maker.</p></figcaption>
+            </figure>
+            <figure class="pg-card" data-slug="bouguessa">
+                <div class="pg-media" style="background:linear-gradient(135deg,#d8c3ad,#b48a6e 55%,#5e4636)"><img class="lazy-src" data-src="images/play/bouguessa" alt="Bouguessa" hidden><span class="pg-soon">Coming soon</span></div>
+                <figcaption><h3 class="pg-title">Bouguessa</h3><span>Lifestyle · Dubai</span><p>A launch campaign for the Dubai fashion label’s modern, modest wardrobe.</p></figcaption>
+            </figure>
+            <figure class="pg-card" data-slug="ellington">
+                <div class="pg-media" style="background:linear-gradient(135deg,#1d2b33,#3f5f68 55%,#b8c7c4)"><img class="lazy-src" data-src="images/play/ellington" alt="Ellington Properties" hidden><span class="pg-soon">Coming soon</span></div>
+                <figcaption><h3 class="pg-title">Ellington Properties</h3><span>Luxury real estate · Dubai</span><p>Off-plan launch content for Indian HNI investors, built for brokers to share.</p></figcaption>
+            </figure>
         </div>
     </section>
 
@@ -1810,6 +1883,33 @@
                 card.addEventListener('click', e => { if (e.metaKey || e.ctrlKey) { open(card.dataset.href); return } go(card.dataset.href) });
                 card.addEventListener('keydown', e => { if (e.key === 'Enter') go(card.dataset.href) });
             });
+            // load hero images wherever a slot asks for one (jpg → png → webp), keep the placeholder until it arrives
+            document.querySelectorAll('img.lazy-src[data-src]').forEach(img => {
+                const ext = ['jpg', 'jpeg', 'png', 'webp']; let i = 0;
+                img.onload = () => { img.hidden = false; const ph = img.parentElement.querySelector('.sc-ph, .pg-soon'); if (ph && ph.classList.contains('sc-ph')) ph.style.display = 'none' };
+                img.onerror = () => { if (++i < ext.length) img.src = `${img.dataset.src}.${ext[i]}` };
+                img.src = `${img.dataset.src}.${ext[0]}`;
+            });
+            // showcase: the project nearest the middle of the screen opens to full size and lights its title
+            const items = [...document.querySelectorAll('.sc-item')];
+            if (items.length) {
+                const mq = matchMedia('(max-width:860px)');
+                let queued = false;
+                const frame = () => {
+                    queued = false;
+                    const vh = innerHeight, mid = vh / 2;
+                    items.forEach(el => {
+                        if (mq.matches || reduce) { el.style.setProperty('--t', 1); el.style.removeProperty('--w'); return }
+                        const r = el.getBoundingClientRect(), c = r.top + r.height / 2;
+                        const d = Math.min(1, Math.abs(c - mid) / (vh * .62));
+                        const t = 1 - d * d * (3 - 2 * d);
+                        el.style.setProperty('--t', t.toFixed(3));
+                        el.style.setProperty('--w', (50 + t * 12).toFixed(2) + '%');
+                    });
+                };
+                const q = () => { if (!queued) { queued = true; requestAnimationFrame(frame) } };
+                addEventListener('scroll', q, { passive: true }); addEventListener('resize', q); frame();
+            }
             // show a real cover photo once it's uploaded (images/rua/cover.jpg etc.)
             document.querySelectorAll('.p-cover[data-src]').forEach(img => {
                 const ext = ['jpg', 'jpeg', 'png', 'webp']; let i = 0;
