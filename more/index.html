@@ -4,20 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Lazee — Case Study | Aarin Redij</title>
+    <title>More Work — Lazee &amp; Sky Breeze | Aarin Redij</title>
     <meta name="description"
-        content="Lazee: a Fashion / Clothing case study by content strategist Aarin Redij.">
+        content="More client work by content strategist Aarin Redij: Lazee and Sky Breeze.">
     <link rel="icon" href="../favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png">
     <link rel="manifest" href="../site.webmanifest">
     <meta name="theme-color" content="#ffffff">
     <meta name="format-detection" content="telephone=no">
-    <link rel="canonical" href="https://www.aarinredij.work/lazee/">
+    <link rel="canonical" href="https://www.aarinredij.work/more/">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.aarinredij.work/lazee/">
-    <meta property="og:title" content="Lazee — Case Study | Aarin Redij">
-    <meta property="og:description" content="Fashion / Clothing case study by Aarin Redij.">
+    <meta property="og:url" content="https://www.aarinredij.work/more/">
+    <meta property="og:title" content="More Work | Aarin Redij">
+    <meta property="og:description" content="More client work by Aarin Redij.">
     <meta property="og:image" content="https://www.aarinredij.work/images/og.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -411,6 +411,35 @@
         .cursor-fx .next-link .follow-btn { opacity: 0; transition: opacity .25s }
         .cursor-fx .next-link .slot.hot .follow-btn { opacity: 1 }
 
+        /* ---------- more work: two projects on one page ---------- */
+        .mw-index { display: flex; gap: 28px; padding: 0 var(--pad) 70px; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted) }
+        .mw-index a { color: var(--ink); border-bottom: 1px solid currentColor; padding-bottom: 2px }
+        .mw { border-top: 1px solid var(--line); margin: 0 var(--pad); padding: 70px 0 110px; scroll-margin-top: 80px }
+        .mw-top { display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; align-items: start }
+        .mw-num { font-size: 12px; color: var(--muted); margin-bottom: 14px }
+        .mw h2 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(56px, 8vw, 128px); line-height: .9 }
+        .mw-cat { margin: 18px 0 26px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted) }
+        .mw-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; border-top: 1px solid var(--line); padding-top: 22px }
+        .mw-facts small { display: block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px }
+        .mw-facts span { font-size: 14px; line-height: 1.5 }
+        .mw-lead { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; color: #2a2d33; margin-top: 26px }
+        .mw-did { list-style: none; display: grid; gap: 10px; margin-top: 22px }
+        .mw-did li { position: relative; padding-left: 24px; font-size: 15px; line-height: 1.5; color: #3b3e44 }
+        .mw-did li::before { content: "—"; position: absolute; left: 0; color: var(--muted) }
+        .mw-stats { display: flex; gap: 40px; flex-wrap: wrap; margin-top: 30px }
+        .mw-stats b { display: block; font-family: var(--display); font-weight: 400; font-size: 44px; line-height: 1 }
+        .mw-stats span { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); max-width: 160px }
+        .mw-reels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px }
+        .mw-back { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; padding: 90px var(--pad); background: var(--ink); color: #fff }
+        .mw-back h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(40px, 6vw, 90px); line-height: .95 }
+        .mw-back a { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 2px }
+        @media (max-width:860px) {
+            .mw-top { grid-template-columns: 1fr; gap: 26px }
+            .mw-reels { grid-template-columns: repeat(4, 62%); overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px }
+            .mw-reels .slot { scroll-snap-align: start }
+            .mw { padding: 50px 0 80px }
+        }
+
         .foot {
             display: flex;
             justify-content: space-between;
@@ -538,113 +567,70 @@
 
     <!-- TITLE -->
     <section class="intro">
-        <div class="tag">Case study (04) · Fashion / Clothing</div>
-        <h1 class="title" id="title">Lazee</h1>
+        <div class="tag">Explore more · Client work</div>
+        <h1 class="title" id="title">More work</h1>
     </section>
-
-    <!-- META -->
-    <div class="meta reveal">
-        <div><small>Year</small><span>2026</span></div>
-        <div><small>Role</small><span>Reels strategy, content direction</span></div>
-        <div><small>Category</small><span>Fashion / Clothing</span></div>
-        <div><small>Status</small><span>[Edit: status]</span></div>
-        <div class="desc">
-            <p>[Edit: one or two lines on what Lazee is, what you changed, and the headline result.]</p>
-            <a href="#results">See results ↓</a>
-        </div>
-    </div>
 
     <!--
-        ============ HOW TO ADD YOUR PICTURES & REELS ============
-        Upload into images/lazee/ with these exact names; each space fills in automatically.
-        Pictures: .jpg .jpeg .png or .webp   ·   Reels: .mp4 .webm or .mov
-          hero        → big picture at the top (16:9) — also the home page cover
-          photo-1..2  → two posts under the big picture (4:5)
-          reel-1..3   → "The reels" (9:16)
-          reel-4..6   → "More from the feed" (9:16)
+        ============ HOW TO ADD PICTURES & REELS ============
+        images/lazee/  and  images/sky-breeze/ :
+          hero        → cover picture (16:9)
+          reel-1..4   → reels (9:16)
     -->
 
-    <!-- HERO MEDIA -->
-    <div class="media-full reveal">
-        <figure class="slot wide" data-src="../images/lazee/hero" data-label="Hero — cover picture"></figure>
-    </div>
-    <div class="grid-2">
-        <figure class="slot port reveal" data-src="../images/lazee/photo-1" data-label="Post 1"></figure>
-        <figure class="slot port reveal" data-src="../images/lazee/photo-2" data-label="Post 2"></figure>
-    </div>
-    <!-- REELS 1–3 -->
-    <div class="reels-head reveal">
-        <h2>The reels</h2>
-        <span class="tag">Tap a reel for sound</span>
-    </div>
-    <div class="reels">
-        <figure class="slot reel reveal" data-src="../images/lazee/reel-1" data-label="Reel 1"></figure>
-        <figure class="slot reel reveal" data-src="../images/lazee/reel-2" data-label="Reel 2"></figure>
-        <figure class="slot reel reveal" data-src="../images/lazee/reel-3" data-label="Reel 3"></figure>
-    </div>
+    <div class="mw-index reveal"><span>On this page</span><a href="#lazee">Lazee</a><a href="#sky-breeze">Sky Breeze</a></div>
 
-    <!-- CHALLENGE / INSIGHT -->
-    <section class="story">
-        <h2 class="reveal">The brief</h2>
-        <div class="rows">
+    <section class="mw" id="lazee">
+        <div class="mw-top">
+            <figure class="slot wide reveal" data-src="../images/lazee/hero" data-label="Lazee — cover picture"></figure>
             <div class="reveal">
-                <h4>Challenge</h4>
-                <p>[Edit: what wasn't working for Lazee before you came in.]</p>
-            </div>
-            <div class="reveal">
-                <h4>Insight</h4>
-                <p><strong>[Edit: the one insight that changed the content.]</strong> [Edit: the proof behind it.]</p>
+                <div class="mw-num">(01)</div>
+                <h2>Lazee</h2>
+                <div class="mw-cat">Fashion / Clothing</div>
+                <div class="mw-facts">
+                    <div><small>Role</small><span>Reels strategy, content direction</span></div>
+                    <div><small>Year</small><span>[Edit: year]</span></div>
+                </div>
+                <p class="mw-lead">[Edit: two or three lines on what Lazee is, what wasn’t working, and what you changed.]</p>
+                <ul class="mw-did"><li>Reels strategy for the brand</li><li>[Edit: what you did]</li><li>[Edit: what you did]</li></ul>
+                <div class="mw-stats"><div><b>[Number]</b><span>[Edit: what it measures]</span></div><div><b>[Number]</b><span>[Edit: what it measures]</span></div></div>
             </div>
         </div>
-    </section>
-
-    <!-- WHAT I DID -->
-    <section class="story">
-        <h2 class="reveal">What I did</h2>
-        <div class="rows reveal">
-            <ul>
-                <li>Reels strategy for the brand</li>
-                <li>[Edit: what you did]</li>
-                <li>[Edit: what you did]</li>
-                <li>[Edit: what you did]</li>
-            </ul>
+        <div class="mw-reels">
+            <figure class="slot reel reveal" data-src="../images/lazee/reel-1" data-label="Reel 1"></figure>
+            <figure class="slot reel reveal" data-src="../images/lazee/reel-2" data-label="Reel 2"></figure>
+            <figure class="slot reel reveal" data-src="../images/lazee/reel-3" data-label="Reel 3"></figure>
+            <figure class="slot reel reveal" data-src="../images/lazee/reel-4" data-label="Reel 4"></figure>
         </div>
     </section>
 
-    <!-- REELS 4–6 -->
-    <div class="reels-head reveal">
-        <h2>More from the feed</h2>
-    </div>
-    <div class="reels">
-        <figure class="slot reel reveal" data-src="../images/lazee/reel-4" data-label="Reel 4"></figure>
-        <figure class="slot reel reveal" data-src="../images/lazee/reel-5" data-label="Reel 5"></figure>
-        <figure class="slot reel reveal" data-src="../images/lazee/reel-6" data-label="Reel 6"></figure>
-    </div>
-
-    <!-- RESULTS -->
-    <section class="results" id="results">
-        <div class="tag">Result</div>
-        <h2 class="reveal">[Edit: result headline]</h2>
-        <div class="res-grid reveal">
-            <div><b>[Number]</b><span>[Edit: what it measures]</span></div>
-            <div><b>[Number]</b><span>[Edit: what it measures]</span></div>
-            <div><b>[Number]</b><span>[Edit: what it measures]</span></div>
+    <section class="mw" id="sky-breeze">
+        <div class="mw-top">
+            <figure class="slot wide reveal" data-src="../images/sky-breeze/hero" data-label="Sky Breeze — cover picture"></figure>
+            <div class="reveal">
+                <div class="mw-num">(02)</div>
+                <h2>Sky Breeze</h2>
+                <div class="mw-cat">[Edit: category]</div>
+                <div class="mw-facts">
+                    <div><small>Role</small><span>[Edit: your role]</span></div>
+                    <div><small>Year</small><span>[Edit: year]</span></div>
+                </div>
+                <p class="mw-lead">[Edit: two or three lines on what Sky Breeze is, what wasn’t working, and what you changed.]</p>
+                <ul class="mw-did"><li>[Edit: what you did]</li><li>[Edit: what you did]</li><li>[Edit: what you did]</li></ul>
+                <div class="mw-stats"><div><b>[Number]</b><span>[Edit: what it measures]</span></div><div><b>[Number]</b><span>[Edit: what it measures]</span></div></div>
+            </div>
+        </div>
+        <div class="mw-reels">
+            <figure class="slot reel reveal" data-src="../images/sky-breeze/reel-1" data-label="Reel 1"></figure>
+            <figure class="slot reel reveal" data-src="../images/sky-breeze/reel-2" data-label="Reel 2"></figure>
+            <figure class="slot reel reveal" data-src="../images/sky-breeze/reel-3" data-label="Reel 3"></figure>
+            <figure class="slot reel reveal" data-src="../images/sky-breeze/reel-4" data-label="Reel 4"></figure>
         </div>
     </section>
 
-    <!-- NEXT PROJECT -->
-    <section class="next">
-        <div class="reveal">
-            <div class="tag">Next project</div>
-            <h3>Sky Breeze</h3>
-            <div class="cat">[Edit: category] · 2026</div>
-            <a class="back" href="../#work" data-go>← All work</a>
-        </div>
-        <a class="next-link reveal" href="../sky-breeze/" data-go aria-label="View project: Sky Breeze">
-            <figure class="slot land" data-src="../images/sky-breeze/hero" data-label="Sky Breeze">
-                <span class="follow-btn">View project</span>
-            </figure>
-        </a>
+    <section class="mw-back">
+        <h3>Back to the main work</h3>
+        <a href="../#work" data-go>← RUA · Destiny · Luma × Novu</a>
     </section>
 
     <div class="foot">
@@ -749,7 +735,7 @@
             };
             requestAnimationFrame(step);
         }
-        const scr = [...document.querySelectorAll('nav a, .tag, .story h4, .story h2, .reels-head h2, .results h2, .next h3, .meta small, .back, .foot a')].filter(el => !el.children.length);
+        const scr = [...document.querySelectorAll('nav a, .tag, .story h4, .story h2, .reels-head h2, .mw-index a, .mw-num, .back, .foot a')].filter(el => !el.children.length);
         const sio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { scramble(e.target); sio.unobserve(e.target) } }), { threshold: .6 });
         const HOVER_SCRAMBLE = 'nav a, .tag, .meta small, .back, .foot a'; // big headings only scramble once, on scroll-in
         scr.forEach(el => { sio.observe(el); if (el.matches(HOVER_SCRAMBLE)) el.addEventListener('mouseenter', () => scramble(el)) });
@@ -785,7 +771,7 @@
                 media.addEventListener('mousemove', e => { at(e); kick() });
                 media.addEventListener('mouseleave', () => { hov = false; dot.classList.remove('hide'); media.classList.remove('hot'); if (!hideWhenIdle) centre(); kick() });
             }
-            const nslot = document.querySelector('.next .slot'); followLabel(nslot, nslot.querySelector('.follow-btn'), !!nslot.closest('a'));
+            const nslot = document.querySelector('.next .slot'); if (nslot) followLabel(nslot, nslot.querySelector('.follow-btn'), !!nslot.closest('a'));
         }
     </script>
 </body>

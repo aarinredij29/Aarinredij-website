@@ -453,6 +453,11 @@
         .cursor-fx .sc-item .p-media .view-btn { opacity: 0 }
         .cursor-fx .sc-item .p-media.hot .view-btn { opacity: 1 }
 
+        /* explore more: one link on dark, opens /more/ */
+        .explore-link { background: #07070b; padding: 90px 24px; text-align: center }
+        .explore-link a { display: inline-flex; gap: 14px; align-items: center; color: #fff; font-size: clamp(14px, 1.2vw, 16px); letter-spacing: .18em; text-transform: uppercase; border-bottom: 1px solid rgba(255, 255, 255, .6); padding-bottom: 6px; transition: gap .3s, border-color .3s }
+        .explore-link a:hover { gap: 22px; border-color: #fff }
+
         /* explore more (still on dark) */
         .explore { padding: 70px 24px 40px; max-width: 1240px; margin: 0 auto }
         .ex-head, .pg-head { display: flex; justify-content: space-between; gap: 16px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding-bottom: 14px; border-bottom: 1px solid #2a2a33; color: #a3a6ad }
@@ -1471,20 +1476,8 @@
     </section>
 
     <!-- EXPLORE MORE -->
-    <section class="showcase explore-wrap" aria-label="More client work">
-        <div class="explore">
-            <div class="ex-head"><span>Explore more</span><span>More client work</span></div>
-            <div class="ex-grid">
-                <article class="ex-card" data-href="lazee/" role="link" tabindex="0" aria-label="View project: Lazee">
-                    <div class="ex-media"><div class="sc-ph">Lazee</div><img class="lazy-src" data-src="images/lazee/hero" alt="Lazee" hidden></div>
-                    <div class="ex-cap"><h3 class="ex-title">Lazee</h3><span>Fashion / Clothing · Reels strategy</span><b>View project →</b></div>
-                </article>
-                <article class="ex-card" data-href="sky-breeze/" role="link" tabindex="0" aria-label="View project: Sky Breeze">
-                    <div class="ex-media"><div class="sc-ph">Sky Breeze</div><img class="lazy-src" data-src="images/sky-breeze/hero" alt="Sky Breeze" hidden></div>
-                    <div class="ex-cap"><h3 class="ex-title">Sky Breeze</h3><span>[Edit: category]</span><b>View project →</b></div>
-                </article>
-            </div>
-        </div>
+    <section class="explore-link" aria-label="More client work">
+        <a href="more/" data-go-more>Explore more <span>→</span></a>
     </section>
 
     <!-- PLAYGROUND: Dubai spec campaigns -->
@@ -1887,6 +1880,7 @@
                 stairs.classList.add('in');
                 setTimeout(() => location.href = href, 550 + COLS * 45);
             };
+            document.querySelectorAll('[data-go-more]').forEach(a => a.addEventListener('click', e => { if (e.metaKey || e.ctrlKey) return; e.preventDefault(); go(a.getAttribute('href')) }));
             document.querySelectorAll('[data-href]').forEach(card => {
                 card.addEventListener('click', e => { if (e.metaKey || e.ctrlKey) { open(card.dataset.href); return } go(card.dataset.href) });
                 card.addEventListener('keydown', e => { if (e.key === 'Enter') go(card.dataset.href) });
