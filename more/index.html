@@ -430,13 +430,17 @@
         .mw-stats b { display: block; font-family: var(--display); font-weight: 400; font-size: 44px; line-height: 1 }
         .mw-stats span { display: block; margin-top: 8px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); max-width: 160px }
         .mw-reels { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 40px }
+        .mw-rcap { margin-top: 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 11px; letter-spacing: .06em; text-transform: uppercase }
+        .mw-rcap b { font-weight: 600 }
+        .mw-rcap span { color: var(--muted); white-space: nowrap }
+
         .mw-back { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; padding: 90px var(--pad); background: var(--ink); color: #fff }
         .mw-back h3 { font-family: var(--display); font-weight: 400; text-transform: uppercase; font-size: clamp(40px, 6vw, 90px); line-height: .95 }
         .mw-back a { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 2px }
         @media (max-width:860px) {
             .mw-top { grid-template-columns: 1fr; gap: 26px }
             .mw-reels { grid-template-columns: repeat(4, 62%); overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px }
-            .mw-reels .slot { scroll-snap-align: start }
+            .mw-reels .slot, .mw-reel { scroll-snap-align: start }
             .mw { padding: 50px 0 80px }
         }
 
@@ -596,11 +600,12 @@
                     sweatpants feel like <em>“understated luxury.”</em> In launch month, views grew 599%, with reels
                     driving most of the reach.</p>
                 <ul class="mw-did">
-                    <li>A launch campaign, from a “Launching tomorrow · 22.02 · 8am” teaser to an “It is live now” drop</li>
-                    <li>A playbook of 20 reel ideas built on everyday “POV with friends” moments, light humour and payoffs under 10 seconds</li>
-                    <li>5 proven reel formats, with visual and transition hooks to stop the scroll</li>
-                    <li>A signature italic serif text style in warm cream, so every reel reads as one brand</li>
-                    <li>A monthly Instagram report covering performance, retention, brand awareness and next steps</li>
+                    <li>A four-step launch arc across the reels: the date reveal, a “Launching tomorrow · 8am” countdown, then “It is live now” and “Now live” on launch day</li>
+                    <li>Studio lookbook reels for the hero pieces (wide black trousers, the knit worn over the shoulders), cut fast with frame-in-frame and glitch transitions</li>
+                    <li>Lifestyle reels that show the comfort in real life: lounging at home with coffee, a laptop and a book. “POV: your comfort looks this good”</li>
+                    <li>Humour that sells the product: “bro just wanted to see the pants,” where a friend walks off with them</li>
+                    <li>The same LAZEE end card on every reel, so each one doubles as a launch announcement</li>
+                    <li>A 20-idea reel playbook for after launch, plus a monthly Instagram report</li>
                 </ul>
                 <div class="mw-stats">
                     <div><b>58.7K</b><span>views in launch month, up 599%</span></div>
@@ -610,10 +615,10 @@
             </div>
         </div>
         <div class="mw-reels">
-            <figure class="slot reel reveal" data-src="../images/lazee/reel-1" data-label="Reel 1 — the launch look"></figure>
-            <figure class="slot reel reveal" data-src="../images/lazee/reel-2" data-label="Reel 2 — the duo reel"></figure>
-            <figure class="slot reel reveal" data-src="../images/lazee/reel-3" data-label="Reel 3 — comfort at home"></figure>
-            <figure class="slot reel reveal" data-src="../images/lazee/reel-4" data-label="Reel 4 — “bro just wanted to see the pants”"></figure>
+            <div class="mw-reel reveal"><figure class="slot reel" data-src="../images/lazee/reel-1" data-label="Reel 1 — the launch look"></figure><p class="mw-rcap"><b>01 · Date reveal</b><span>7.5K views</span></p></div>
+            <div class="mw-reel reveal"><figure class="slot reel" data-src="../images/lazee/reel-2" data-label="Reel 2 — the duo reel"></figure><p class="mw-rcap"><b>02 · Launching tomorrow</b><span>11.5K views</span></p></div>
+            <div class="mw-reel reveal"><figure class="slot reel" data-src="../images/lazee/reel-3" data-label="Reel 3 — comfort at home"></figure><p class="mw-rcap"><b>03 · It’s live: comfort at home</b><span>6.8K views</span></p></div>
+            <div class="mw-reel reveal"><figure class="slot reel" data-src="../images/lazee/reel-4" data-label="Reel 4 — “bro just wanted to see the pants”"></figure><p class="mw-rcap"><b>04 · Now live: the pants joke</b><span>6.2K views</span></p></div>
         </div>
     </section>
 
