@@ -461,7 +461,7 @@
 
         /* explore more (still on dark) */
         .explore { padding: 70px 24px 40px; max-width: 1240px; margin: 0 auto }
-        .ex-head, .pg-head { display: flex; justify-content: space-between; gap: 16px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding-bottom: 14px; border-bottom: 1px solid #2a2a33; color: #a3a6ad }
+        .ex-head { display: flex; justify-content: space-between; gap: 16px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; padding-bottom: 14px; border-bottom: 1px solid #2a2a33; color: #a3a6ad }
         .ex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 34px }
         .ex-card { cursor: pointer; outline: none }
         .ex-media { position: relative; aspect-ratio: 16/10; overflow: hidden; background: #15151c }
@@ -474,24 +474,6 @@
         .ex-cap b { margin-left: auto; font-weight: 500; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; opacity: .6; transition: opacity .25s, transform .25s }
         .ex-card:hover .ex-cap b { opacity: 1; transform: translateX(4px) }
 
-        /* ---------- playground: Dubai spec campaigns (light) ---------- */
-        .playground { background: #f1f1ef; padding: 90px 24px 110px }
-        .playground .pg-head { border-color: #d6d6d1; color: var(--ink); max-width: 1240px; margin: 0 auto }
-        .pg-note { max-width: 1240px; margin: 14px auto 0; font-size: 13px; color: var(--muted) }
-        .pg-grid { max-width: 1240px; margin: 46px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px }
-        .pg-card { margin: 0 }
-        .pg-media { position: relative; aspect-ratio: 16/10.5; overflow: hidden; transition: transform .45s cubic-bezier(.2, .7, .2, 1), box-shadow .45s }
-        .pg-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover }
-        .pg-media .view-btn { opacity: 1; transform: translate(-50%, -50%) }
-        .cursor-fx .pg-media .view-btn { left: 0; top: 0; transform: none; will-change: transform; opacity: 0; transition: opacity .25s }
-        .cursor-fx .pg-media.hot .view-btn { opacity: 1 }
-        .pg-card figcaption { margin-top: 14px; opacity: 0; transform: translateY(-6px); transition: opacity .35s, transform .35s }
-        .pg-card figcaption span { display: block; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin-top: 4px }
-        .pg-title { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase }
-        .pg-card figcaption p { margin-top: 6px; font-size: 13px; line-height: 1.5; color: #555 }
-        .pg-card:hover .pg-media { transform: scale(1.06); box-shadow: 0 24px 60px rgba(0, 0, 0, .18) }
-        .pg-card:hover figcaption { opacity: 1; transform: none }
-        @media (hover: none), (pointer: coarse) { .pg-card figcaption { opacity: 1; transform: none } }
 
         @media (max-width:860px) {
             .sc-item { height: auto; min-height: 0; padding: 0 0 46px }
@@ -503,9 +485,6 @@
             .sc-title::after { width: 22% }
             .explore { padding: 50px 16px 30px }
             .ex-grid { grid-template-columns: 1fr; gap: 34px }
-            .playground { padding: 70px 16px 80px }
-            .pg-head span:last-child { display: none }
-            .pg-grid { grid-template-columns: 1fr; gap: 34px }
         }
 
         /* ---------- numbers ---------- */
@@ -1482,26 +1461,6 @@
     <!-- EXPLORE MORE -->
     <section class="explore-link" aria-label="More client work">
         <a href="more/" data-go-more>Explore more <span>→</span></a>
-    </section>
-
-    <!-- PLAYGROUND: Dubai spec campaigns -->
-    <section class="playground" id="dubai-edit">
-        <div class="pg-head"><span>Built for Dubai</span><span>Dubai spec campaigns / F&amp;B / Lifestyle / Real estate</span></div>
-        <p class="pg-note">Independent spec projects, not commissioned. Built to show how I’d approach Dubai brands.</p>
-        <div class="pg-grid">
-            <figure class="pg-card" data-slug="mirzam">
-                <div class="pg-media" style="background:linear-gradient(135deg,#3b2316,#8a5a2b 55%,#d9a35a)"><img class="lazy-src" data-src="images/play/mirzam" alt="Mirzam Chocolate" hidden><span class="view-btn">Coming soon</span></div>
-                <figcaption><h3 class="pg-title">Mirzam Chocolate</h3><span>F&amp;B · Dubai</span><p>A content campaign for Dubai’s homegrown bean-to-bar chocolate maker.</p></figcaption>
-            </figure>
-            <figure class="pg-card" data-slug="bouguessa">
-                <div class="pg-media" style="background:linear-gradient(135deg,#d8c3ad,#b48a6e 55%,#5e4636)"><img class="lazy-src" data-src="images/play/bouguessa" alt="Bouguessa" hidden><span class="view-btn">Coming soon</span></div>
-                <figcaption><h3 class="pg-title">Bouguessa</h3><span>Lifestyle · Dubai</span><p>A launch campaign for the Dubai fashion label’s modern, modest wardrobe.</p></figcaption>
-            </figure>
-            <figure class="pg-card" data-slug="ellington">
-                <div class="pg-media" style="background:linear-gradient(135deg,#1d2b33,#3f5f68 55%,#b8c7c4)"><img class="lazy-src" data-src="images/play/ellington" alt="Ellington Properties" hidden><span class="view-btn">Coming soon</span></div>
-                <figcaption><h3 class="pg-title">Ellington Properties</h3><span>Luxury real estate · Dubai</span><p>Off-plan launch content for Indian HNI investors, built for brokers to share.</p></figcaption>
-            </figure>
-        </div>
     </section>
 
     <!-- NUMBERS -->
